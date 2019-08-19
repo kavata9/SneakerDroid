@@ -13,6 +13,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import com.kavata9.snekerdroid.helpers.Status;
 
 import org.json.JSONException;
 import org.json.JSONObject;
