@@ -1,9 +1,11 @@
 package com.kavata9.snekerdroid.networks;
 
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -13,7 +15,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import com.kavata9.snekerdroid.BuildConfig;
 import com.kavata9.snekerdroid.helpers.Status;
+import com.kavata9.snekerdroid.interfaces.ProgressInterface;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,8 +87,6 @@ public class ProjectRepository {
                 .connectTimeout(CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .writeTimeout(READ_TIMEOUT, TimeUnit.MILLISECONDS)
                 .readTimeout(WRITE_TIMEOUT, TimeUnit.MILLISECONDS)
-                .certificatePinner(cp)
-                .addNetworkInterceptor(new CacheInterceptor())
                 .dispatcher(dispatcher)
                 .addInterceptor(logging);
 
@@ -101,18 +103,6 @@ public class ProjectRepository {
     }
 
     //Singleton
-    synchronized static ProjectRepository getInstance(final AppDatabase database) {
-
-        if (projectRepository == null) {
-            synchronized (ProjectRepository.class) {
-                if (projectRepository == null) {
-                    projectRepository = new ProjectRepository(database);
-                }
-            }
-        }
-
-        return projectRepository;
-    }
 
 
 
@@ -159,9 +149,10 @@ public class ProjectRepository {
 
 
 
-    public void customersRegister(ProgressInterface<HashMap<Status, String>> progressInterface, HashMap<String, Object> data) {
+    public void customersRegister(final ProgressInterface<HashMap<Status, String>> progressInterface, HashMap<String, Object> data) {
 
-        service.customerCall("", data).enqueue(new Callback<JsonObject>() {
+        service.customerCall("/api/v1/mobile/participants/", data).enqueue(new Callback<JsonObject>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
