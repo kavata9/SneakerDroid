@@ -23,32 +23,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Calendar;
 
-import java.util.Date;
+
+
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
-import java.util.List;
-import java.util.Map;
+
+
 import java.util.Objects;
-import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import okhttp3.CacheControl;
-import okhttp3.CertificatePinner;
+import java.util.concurrent.TimeUnit;
+
+
 import okhttp3.Dispatcher;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.internal.cache.CacheInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -101,52 +89,6 @@ public class ProjectRepository {
         service = retrofit.create(APIService.class);
 
     }
-
-    //Singleton
-
-
-
-
-
-
-    /*  public LiveData<List<LoaneeModel>> getSelectedLoaneeDelete(final AppExecutors executors, final List<String> userList) {
-
-        final MutableLiveData<List<LoaneeModel>> data = new MutableLiveData<>();
-
-        if (!executors.serviceIO().isShutdown() || !executors.serviceIO().isTerminated()) {
-
-            Callable<List<LoaneeModel>> callable = () -> {
-                return null;//mDb.loanDAO().livefetchSelected(userList);
-            };
-            Future<List<LoaneeModel>> future = executors.serviceIO().submit(callable);
-            // future.get() returns list or raises an exception if the thread dies, so safer
-
-            try {
-                data.setValue(future.get());
-                if (BuildConfig.DEBUG) {
-                    Log.i(ProjectRepository.class.getSimpleName(), "getSelectedLoanee: " + future.get());
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            if (BuildConfig.DEBUG) {
-                Log.i(ProjectRepository.class.getSimpleName(), "DATA: " + new Gson().toJson(data, MutableLiveData.class));
-            }
-
-            //executors.serviceIO().shutdown();
-
-        } else {
-            System.out.println("ServiceIO shutdown");
-        }
-        return data;
-
-        }
-    */
-
-
 
 
     public void customersRegister(final ProgressInterface<HashMap<Status, String>> progressInterface, HashMap<String, Object> data) {

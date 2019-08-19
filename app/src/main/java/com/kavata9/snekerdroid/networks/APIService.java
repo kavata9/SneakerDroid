@@ -28,6 +28,7 @@ public interface APIService {
 
     String BASE_URL = "http://interviews.busaracenterlab.org";
 
+    String FCM_KEY = "BJAa-icl1LMPeht2610oZCsGgfxvXpAw3M7Zc7xJMlF307ttKzD2bCuh0W2myaTxIRhCpOu8N58Cff73V7N9Qls";
     String UPLOAD_URL = "http://interviews.busaracenterlab.org";
 
     @POST("{path}")
