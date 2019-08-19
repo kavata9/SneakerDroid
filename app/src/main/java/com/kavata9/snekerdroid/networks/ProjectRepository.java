@@ -1,23 +1,24 @@
 package com.kavata9.snekerdroid.networks;
 
-import android.content.SharedPreferences;
+
+import android.content.res.Resources;
 import android.os.Build;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
+
 import androidx.annotation.RequiresApi;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
+
 import com.kavata9.snekerdroid.BuildConfig;
 import com.kavata9.snekerdroid.helpers.Status;
 import com.kavata9.snekerdroid.interfaces.ProgressInterface;
+import com.kavata9.snekerdroid.models.ResponseBody;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,6 +45,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.content.ContentValues.TAG;
 import static com.kavata9.snekerdroid.networks.APIService.CONNECT_TIMEOUT;
 import static com.kavata9.snekerdroid.networks.APIService.READ_TIMEOUT;
 import static com.kavata9.snekerdroid.networks.APIService.WRITE_TIMEOUT;
@@ -88,61 +90,64 @@ public class ProjectRepository {
 
         service = retrofit.create(APIService.class);
 
+
+
+
+    }
+    //Singleton
+    public synchronized static ProjectRepository getInstance() {
+
+        if (projectRepository == null) {
+            synchronized (ProjectRepository.class) {
+                if (projectRepository == null) {
+                    projectRepository = new ProjectRepository();
+                }
+            }
+        }
+
+        return projectRepository;
     }
 
 
-    public void customersRegister(final ProgressInterface<HashMap<Status, String>> progressInterface, HashMap<String, Object> data) {
+    public void customersRegister(final ProgressInterface<HashMap<Status, String>> progressInterface, HashMap<String, Object> map) {
 
-        service.customerCall("/api/v1/mobile/participants/", data).enqueue(new Callback<JsonObject>() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+
+        service.customerCall(map).enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                HashMap<Status, String> map = new HashMap<>();
+                HashMap<Status, String> hashMap = new HashMap<>();
 
                 if (response.isSuccessful()) {
+                    hashMap.put(Status.SUCCESS, "SUCCESS");
 
-                    map.put(Status.SUCCESS, "You have been successfully registered. Log in to continue.");
 
-                    progressInterface.onResult(map);
-
+                    progressInterface.onResult(hashMap);
+                    Log.d(TAG, "onResponse: " + response.body().getAccessToken());
 
                 } else {
+                    //hide loading
+                    progressInterface.onResult(hashMap);
 
-                    JSONObject jObjError = null;
-                    String message = "Failed. Something went wrong";
-                    try {
-                        jObjError = new JSONObject(Objects.requireNonNull(response.errorBody()).string());
-                        JsonParser jsonParser = new JsonParser();
-                        JsonObject gsonObject = (JsonObject) jsonParser.parse(jObjError.toString());
-                        JsonObject error = gsonObject.get("error").getAsJsonObject();
-                        message = error.get("message").getAsString();
-
-                        if (BuildConfig.DEBUG) {
-                            Log.i(ProjectRepository.class.getSimpleName(), "onResponse: " + message);
-                        }
-                        map.put(Status.FAIL, message);
-                        progressInterface.onResult(map);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    hashMap.put(Status.CONNECTION_ERROR,"fail");
                 }
+
+
             }
 
-
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.i(ProjectRepository.class.getSimpleName(), "onFailure: " + t.toString());
 
-                HashMap<Status, String> map = new HashMap<>();
-                map.put(Status.FAIL, "Failed. Something went wrong.\nTry again later");
-                progressInterface.onResult(map);
+                HashMap<Status, String> newMap = new HashMap<>();
 
+                //hide loading
+                progressInterface.onResult(newMap);
 
             }
         });
+
+
     }
 
 

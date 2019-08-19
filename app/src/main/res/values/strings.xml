@@ -1,3 +1,12 @@
 <resources>
   <string name="app_name">SnekerDroid</string>
+    <string name="register">Register</string>
+  <string name="manufacturer">Manufacturer</string>
+  <string name="device_type">device_type</string>
+  <string name="device_model">device_model</string>
+  <string name="app_version">App version</string>
+  <string name="mobile_no">PhoneNumber</string>
+  <string name="phone_number">PhoneNumber</string>
+  <string name="lastname">LastName</string>
+  <string name="firstname">FirstName</string>
 </resources>
