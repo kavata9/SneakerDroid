@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "384719841045",
+    "firebase_url": "https://sneakerdroid-152d7.firebaseio.com",
+    "project_id": "sneakerdroid-152d7",
+    "storage_bucket": "sneakerdroid-152d7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384719841045:android:4779d448355a6d63",
+        "android_client_info": {
+          "package_name": "com.kavata9.snekerdroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "384719841045-q38t83o8t9ig6i34jjhu0ha4cgqutkhi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD85xeJUBFhpuiYCJxEBdj0By7ObWGX9BU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "384719841045-q38t83o8t9ig6i34jjhu0ha4cgqutkhi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
