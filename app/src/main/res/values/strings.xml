@@ -9,4 +9,6 @@
   <string name="phone_number">PhoneNumber</string>
   <string name="lastname">LastName</string>
   <string name="firstname">FirstName</string>
+    <string name="welcome">Kindly  enter your details</string>
+  <string name="background">TODO</string>
 </resources>

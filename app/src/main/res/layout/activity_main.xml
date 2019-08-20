@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".login.MainActivity">
 
+
+  <ImageView
+      android:id="@+id/header_image"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:adjustViewBounds="true"
+      android:contentDescription="@string/background"
+      android:scaleType="fitXY"
+      android:src="@drawable/background_bg"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+
   <TextView
       android:id="@+id/textView"
       android:layout_width="wrap_content"
@@ -14,7 +27,7 @@
       android:layout_marginTop="8dp"
       android:layout_marginEnd="8dp"
       android:gravity="center"
-      android:text="Welcome to SneakerDroid,kindly fill you details"
+      android:text="@string/welcome"
       android:textSize="18sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +50,9 @@
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:orientation="horizontal">
+          android:orientation="horizontal"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent">
 
         <TextView
             android:layout_width="100dp"
@@ -85,7 +100,7 @@
               android:id="@+id/ccp"
               android:layout_width="wrap_content"
               android:layout_height="match_parent"
-              android:background="@color/white"
+              android:background="@color/colorWhite"
               android:textSize="15sp"
               app:ccp_autoDetectCountry="true"
               app:ccp_textSize="14sp"
