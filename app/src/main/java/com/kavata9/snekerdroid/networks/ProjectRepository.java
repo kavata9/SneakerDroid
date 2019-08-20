@@ -1,38 +1,14 @@
 package com.kavata9.snekerdroid.networks;
 
-
-import android.content.res.Resources;
-import android.os.Build;
 import android.util.Log;
-
-
-import androidx.annotation.RequiresApi;
-
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-import com.kavata9.snekerdroid.BuildConfig;
 import com.kavata9.snekerdroid.helpers.Status;
 import com.kavata9.snekerdroid.interfaces.ProgressInterface;
 import com.kavata9.snekerdroid.models.ResponseBody;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-
-
 import java.util.HashMap;
-
-
-
-import java.util.Objects;
-
 import java.util.concurrent.TimeUnit;
 
 

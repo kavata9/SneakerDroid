@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -235,9 +236,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //(Status.SUCCESS, response.body().getAccessToken())
         if (result.containsKey(Status.SUCCESS)) {
+          //   Move to the next acitvity
+          Intent intent = new Intent(MainActivity.this, CollectionActivity.class);
+          startActivity(intent);
 
           Log.d(TAG, "onResponse: " + result);
-          Toast.makeText(MainActivity.this, "Successfully. Log in again to continue",
+          Toast.makeText(MainActivity.this, "Successfully",
                   Toast.LENGTH_LONG).show();
         } else if (result.containsKey(Status.FAIL)) {
 
