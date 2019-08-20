@@ -27,6 +27,8 @@
       android:layout_marginTop="8dp"
       android:layout_marginEnd="8dp"
       android:gravity="center"
+      android:textColor="@color/colorAccent"
+      android:textStyle="bold"
       android:text="@string/welcome"
       android:textSize="18sp"
       app:layout_constraintEnd_toEndOf="parent"
@@ -37,6 +39,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_marginTop="60dp"
+      android:background="@color/colorPrimary"
       app:layout_constraintEnd_toEndOf="@+id/textView"
       app:layout_constraintHorizontal_bias="0.501"
       app:layout_constraintStart_toStartOf="@+id/textView"
@@ -58,10 +61,12 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:gravity="center"
+            android:textColor="@color/colorAccent"
             android:text="@string/firstname" />
 
         <EditText
             android:id="@+id/firstname"
+            android:textColor="@color/colorWhite"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -76,10 +81,12 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:gravity="center"
+            android:textColor="@color/colorAccent"
             android:text="@string/lastname" />
 
         <EditText
             android:id="@+id/lastname"
+            android:textColor="@color/colorWhite"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -97,7 +104,7 @@
             android:orientation="horizontal">
 
           <com.hbb20.CountryCodePicker
-              android:id="@+id/ccp"
+              android:id="@+id/countryCodeHolder"
               android:layout_width="wrap_content"
               android:layout_height="match_parent"
               android:background="@color/colorWhite"
@@ -115,6 +122,7 @@
               android:layout_gravity="start"
               android:ems="12"
               android:gravity="center_vertical"
+              android:textColor="@color/colorAccent"
               android:hint="@string/mobile_no"
               android:inputType="phone"
               android:padding="10dp"
@@ -139,12 +147,14 @@
               android:layout_width="100dp"
               android:layout_height="50dp"
               android:gravity="center"
-              android:text="project code :" />
+              android:textColor="@color/colorAccent"
+              android:text="Project Code :" />
 
           <EditText
               android:id="@+id/projectcode"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textColor="@color/colorAccent"
               android:text="DROID7" />
 
         </LinearLayout>
@@ -158,6 +168,8 @@
               android:layout_width="100dp"
               android:layout_height="50dp"
               android:gravity="center"
+              android:textColor="@color/colorAccent"
+              android:background="@color/colorPrimaryDark"
               android:text="@string/app_version" />
 
           <EditText
@@ -165,6 +177,8 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:inputType="number"
+              android:background="@color/colorPrimaryDark"
+              android:textColor="@color/colorAccent"
               android:text="500" />
 
         </LinearLayout>
@@ -178,12 +192,15 @@
               android:layout_width="100dp"
               android:layout_height="50dp"
               android:gravity="center"
+              android:background="@color/colorPrimaryDark"
+              android:textColor="@color/colorAccent"
               android:text="fcm key :" />
 
           <EditText
               android:id="@+id/fcmkey"
               android:layout_width="match_parent"
-              android:layout_height="match_parent" />
+              android:layout_height="match_parent"
+              android:background="@color/colorPrimaryDark"/>
 
         </LinearLayout>
 
@@ -204,6 +221,9 @@
               android:layout_width="match_parent"
               android:layout_height="50dp"
               android:gravity="center"
+              android:background="@color/colorPrimaryDark"
+              android:textColor="@color/colorAccent"
+              android:textStyle="bold"
               android:text="Device Details" />
 
         </LinearLayout>
@@ -217,12 +237,15 @@
               android:layout_width="100dp"
               android:layout_height="50dp"
               android:gravity="center"
+              android:textColor="@color/colorAccent"
+              android:background="@color/colorPrimaryDark"
               android:text="@string/device_model" />
 
           <TextView
               android:id="@+id/devicemodel"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/colorPrimary"
               android:gravity="center" />
 
         </LinearLayout>
@@ -236,12 +259,15 @@
               android:layout_width="100dp"
               android:layout_height="50dp"
               android:gravity="center"
+              android:background="@color/colorPrimary"
+              android:textColor="@color/colorAccent"
               android:text="@string/device_type" />
 
           <TextView
               android:id="@+id/devicetype"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/colorPrimary"
               android:gravity="center" />
 
         </LinearLayout>
@@ -255,12 +281,15 @@
               android:layout_width="100dp"
               android:layout_height="50dp"
               android:gravity="center"
-              android:text="hardware" />
+              android:background="@color/colorPrimary"
+              android:textColor="@color/colorAccent"
+              android:text="@string/hardware"/>
 
           <TextView
               android:id="@+id/hardware"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/colorPrimary"
               android:gravity="center" />
 
         </LinearLayout>
@@ -274,10 +303,25 @@
               android:layout_width="100dp"
               android:layout_height="50dp"
               android:gravity="center"
+              android:background="@color/colorPrimary"
+              android:textColor="@color/colorAccent"
               android:text="@string/manufacturer" />
 
           <TextView
               android:id="@+id/manufacturer"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/colorPrimary"
+              android:gravity="center" />
+
+          <TextView
+              android:layout_width="100dp"
+              android:layout_height="50dp"
+              android:gravity="center"
+              android:text="@string/deviceid" />
+
+          <TextView
+              android:id="@+id/device_id"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="center" />
@@ -295,6 +339,8 @@
             android:id="@+id/register"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:textColor="@color/colorBlack"
             android:text="@string/register" />
 
       </LinearLayout>

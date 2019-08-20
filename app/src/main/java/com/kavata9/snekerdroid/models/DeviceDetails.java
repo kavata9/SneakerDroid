@@ -18,6 +18,10 @@ public class DeviceDetails {
     @SerializedName("manufacturer")
     @Expose
     private String manufacturer;
+    @SerializedName("device_id")
+    @Expose
+    private String device_id;
+
 
     public String getDeviceModel() {
         return deviceModel;
@@ -49,6 +53,14 @@ public class DeviceDetails {
 
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
+    }
+
+    public String getDevice_id() {
+        return device_id;
+    }
+
+    public void setDevice_id(String device_id) {
+        this.device_id = device_id;
     }
 
 }

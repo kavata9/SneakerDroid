@@ -2,13 +2,9 @@ package com.kavata9.snekerdroid.login;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,9 +30,9 @@ import com.kavata9.snekerdroid.networks.ProjectRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
-import static com.kavata9.snekerdroid.App.getContext;
+
+
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -44,19 +40,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   private static final String TAG = "MainActivity";
 
   //    widgets
-  private EditText editTextfirstname;
-  private EditText editTextlastname;
-  private EditText editTextphone;
-  private EditText editTextprojectcode;
-  private EditText editTextappversion;
+  private EditText editTextFirstName;
+  private EditText editTextLastName;
+  private EditText editTextPhone;
+  private EditText editTextProjectcode;
+  private EditText editTextAppversion;
   private EditText editTextfcmkey;
 
   private TextView TextviewDevicemodel;
   private TextView TextviewDeviceType;
   private TextView TextviewDeviceHardware;
   private TextView TextviewDevicemanufacturer;
+  private TextView TextviewDeviceId;
 
-  private CountryCodePicker ccp;
+  private CountryCodePicker countryCodePicker;
 
   private Button mButtonRegister;
   private ProjectRepository repo;
@@ -70,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   String deviceType = android.os.Build.DEVICE;
   String hardware = android.os.Build.HARDWARE;
   String manufacture = android.os.Build.MANUFACTURER;
+  String device_id = Build.DEVICE;
 
   String selected_country_code;
   String fullNumber;
@@ -98,19 +96,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //    initialize the widgets
 
-    editTextfirstname = findViewById(R.id.firstname);
-    editTextlastname = findViewById(R.id.lastname);
-    editTextphone = findViewById(R.id.input_number);
-    editTextprojectcode = findViewById(R.id.projectcode);
-    editTextappversion = findViewById(R.id.appversion);
+    editTextFirstName = findViewById(R.id.firstname);
+    editTextLastName = findViewById(R.id.lastname);
+    editTextPhone = findViewById(R.id.input_number);
+    editTextProjectcode = findViewById(R.id.projectcode);
+    editTextAppversion = findViewById(R.id.appversion);
     editTextfcmkey = findViewById(R.id.fcmkey);
 
     TextviewDevicemodel = findViewById(R.id.devicemodel);
     TextviewDeviceType = findViewById(R.id.devicetype);
     TextviewDeviceHardware = findViewById(R.id.hardware);
     TextviewDevicemanufacturer = findViewById(R.id.manufacturer);
+    TextviewDeviceId= findViewById(R.id.device_id);
 
-    ccp = findViewById(R.id.ccp);
+    countryCodePicker = findViewById(R.id.countryCodeHolder);
 
     mButtonRegister = findViewById(R.id.register);
 
@@ -127,7 +126,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   }
 
   private void hideViews() {
-    Log.d(TAG, "hideViews: that the user doesnt have to see");
+    //hide view for user not to see form
+
     mLinearLayout1.setVisibility(View.GONE);
     mLinearLayout.setVisibility(View.GONE);
   }
@@ -138,6 +138,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     mDeviceDetailes.setDeviceType(deviceType);
     mDeviceDetailes.setHardware(hardware);
     mDeviceDetailes.setManufacturer(manufacture);
+    mDeviceDetailes.setDevice_id(device_id);
+
 
     getDeviceDetails();
   }
@@ -152,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextviewDeviceType.setText(mDeviceDetailes.getDeviceType());
     TextviewDeviceHardware.setText(mDeviceDetailes.getHardware());
     TextviewDevicemanufacturer.setText(mDeviceDetailes.getManufacturer());
+    TextviewDeviceId.setText(mDeviceDetailes.getDevice_id());
   }
 
   @Override
@@ -159,23 +162,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     if (v.getId() == R.id.register) {
 
-      phone = editTextphone.getText().toString();
+      phone = editTextPhone.getText().toString();
       Log.d(TAG, " phone " + phone);
 
       //   get the correct phone number format (international format)
-      selected_country_code = ccp.getSelectedCountryCodeWithPlus();
+      selected_country_code = countryCodePicker.getSelectedCountryCodeWithPlus();
 
       // log details
 
-      firstName = editTextfirstname.getText().toString();
+      firstName = editTextFirstName.getText().toString();
       Log.d(TAG, "firstName " + firstName);
-      lastName = editTextlastname.getText().toString();
+      lastName = editTextLastName.getText().toString();
       Log.d(TAG, "lastName " + lastName);
       fullNumber = selected_country_code + phone;
       Log.d(TAG, "msisdn " + fullNumber);
-      projectCode = editTextprojectcode.getText().toString();
+      projectCode = editTextProjectcode.getText().toString();
       Log.d(TAG, "projectCode " + projectCode);
-      appVersion = editTextappversion.getText().toString();
+      appVersion = editTextAppversion.getText().toString();
       Log.d(TAG, "appVersion " + appVersion);
       fcmKey = editTextfcmkey.getText().toString();
       Log.d(TAG, " device details " + mDeviceDetailes);
@@ -196,10 +199,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
   }
 
-  private void register(String firstname, String lastname, String phone, String projectCode, String appVersion, String fcmKey, DeviceDetails deviceDetailss) {
+  private void register(String firstName, String lastName, String phone, String projectCode, String appVersion, String fcmKey, DeviceDetails deviceDetailes) {
 
 
-    Log.d(TAG, "registerProcess: field items " + firstname +" "+ lastname +" "+ phone +" "+ projectCode +" "+ appVersion +" "+ fcmKey +" "+ deviceDetailss);
+    Log.d(TAG, "registerProcess: field items " + firstName +" "+ lastName +" "+ phone +" "+ projectCode +" "+ appVersion +" "+ fcmKey +" "+ deviceDetailes);
 
 
 
@@ -209,14 +212,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     device_details.addProperty("device_type", deviceType);
     device_details.addProperty("hardware", hardware);
     device_details.addProperty("manufacturer", manufacture);
+    device_details.addProperty("device_id", device_id);
+
 
 
 
 
     HashMap<String, Object> map = new HashMap<>();
     map.put("phone_number", phone);
-    map.put("first_name", firstname);
-    map.put("last_name", lastname);
+    map.put("first_name", firstName);
+    map.put("last_name", lastName);
     map.put("device_details", device_details);
     map.put("project_code", projectCode);
     map.put("app_version", appVersion);
