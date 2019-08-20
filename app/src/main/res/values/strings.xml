@@ -13,4 +13,5 @@
   <string name="background">TODO</string>
     <string name="deviceid">Device_id</string>
   <string name="hardware">Hardware</string>
+    <string name="hello_world">hello</string>
 </resources>
