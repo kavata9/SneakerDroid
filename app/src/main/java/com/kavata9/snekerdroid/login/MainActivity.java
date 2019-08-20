@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.JsonObject;
@@ -72,16 +74,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   String selected_country_code;
   String fullNumber;
 
-  //    userreg fields
-  String firstname;
-  String lastname;
+  //    userDetails fields
+  String firstName;
+  String lastName;
   String phone;
   String projectCode;
   String appVersion;
   String fcmKey;
 
   //    create new instance of the DeviceDetails model class
-  DeviceDetails mDeviceDetailss = new DeviceDetails();
+  DeviceDetails mDeviceDetailes = new DeviceDetails();
 
   @RequiresApi(api = Build.VERSION_CODES.KITKAT)
   @Override
@@ -132,60 +134,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
   private void setDeviceDetails() {
-    mDeviceDetailss.setDeviceModel(deviceModel);
-    mDeviceDetailss.setDeviceType(deviceType);
-    mDeviceDetailss.setHardware(hardware);
-    mDeviceDetailss.setManufacturer(manufacture);
+    mDeviceDetailes.setDeviceModel(deviceModel);
+    mDeviceDetailes.setDeviceType(deviceType);
+    mDeviceDetailes.setHardware(hardware);
+    mDeviceDetailes.setManufacturer(manufacture);
 
     getDeviceDetails();
   }
 
   private void getDeviceDetails() {
-    Log.d(TAG, "getDeviceDetails: " + mDeviceDetailss.getDeviceModel());
+    Log.d(TAG, "getDeviceDetails: " + mDeviceDetailes.getDeviceModel());
 
     //   editText fcm key
     editTextfcmkey.setText(APIService.FCM_KEY);
 
-    TextviewDevicemodel.setText(mDeviceDetailss.getDeviceModel());
-    TextviewDeviceType.setText(mDeviceDetailss.getDeviceType());
-    TextviewDeviceHardware.setText(mDeviceDetailss.getHardware());
-    TextviewDevicemanufacturer.setText(mDeviceDetailss.getManufacturer());
+    TextviewDevicemodel.setText(mDeviceDetailes.getDeviceModel());
+    TextviewDeviceType.setText(mDeviceDetailes.getDeviceType());
+    TextviewDeviceHardware.setText(mDeviceDetailes.getHardware());
+    TextviewDevicemanufacturer.setText(mDeviceDetailes.getManufacturer());
   }
 
   @Override
   public void onClick(View v) {
-    Log.d(TAG, "onClick: ");
 
     if (v.getId() == R.id.register) {
 
       phone = editTextphone.getText().toString();
-      Log.d(TAG, "onClick: phone " + phone);
+      Log.d(TAG, " phone " + phone);
 
       //   get the correct phone number format (international format)
       selected_country_code = ccp.getSelectedCountryCodeWithPlus();
 
-      //  form fields
+      // log details
 
-      firstname = editTextfirstname.getText().toString();
-      Log.d(TAG, "onClick: firstname " + firstname);
-      lastname = editTextlastname.getText().toString();
-      Log.d(TAG, "onClick: lastname " + lastname);
+      firstName = editTextfirstname.getText().toString();
+      Log.d(TAG, "firstName " + firstName);
+      lastName = editTextlastname.getText().toString();
+      Log.d(TAG, "lastName " + lastName);
       fullNumber = selected_country_code + phone;
-      Log.d(TAG, "Test user mobile " + fullNumber);
+      Log.d(TAG, "msisdn " + fullNumber);
       projectCode = editTextprojectcode.getText().toString();
-      Log.d(TAG, "onClick: projectCode " + projectCode);
+      Log.d(TAG, "projectCode " + projectCode);
       appVersion = editTextappversion.getText().toString();
-      Log.d(TAG, "onClick: appVersion " + appVersion);
+      Log.d(TAG, "appVersion " + appVersion);
       fcmKey = editTextfcmkey.getText().toString();
-      // and device details that are initialised above
-      Log.d(TAG, "onClick: device details " + mDeviceDetailss);
+      Log.d(TAG, " device details " + mDeviceDetailes);
 
-      Log.d(TAG, "onClick: field items " + firstname +" "+ lastname +" "+ fullNumber +" "+ projectCode +" "+ appVersion +" "+ fcmKey +" "+ mDeviceDetailss);
+      Log.d(TAG, "field items " + firstName +" "+ lastName +" "+ fullNumber +" "+ projectCode +" "+ appVersion +" "+ fcmKey +" "+ mDeviceDetailes);
 
 
-      if(!firstname.isEmpty() && !lastname.isEmpty() && !fullNumber.isEmpty()) {
+      if(!firstName.isEmpty() && !lastName.isEmpty() && !fullNumber.isEmpty()) {
 
-        register(firstname, lastname, fullNumber, projectCode, appVersion, fcmKey, mDeviceDetailss);
+        register(firstName, lastName, fullNumber, projectCode, appVersion, fcmKey, mDeviceDetailes);
 
       } else {
 
@@ -197,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   }
 
   private void register(String firstname, String lastname, String phone, String projectCode, String appVersion, String fcmKey, DeviceDetails deviceDetailss) {
+
 
     Log.d(TAG, "registerProcess: field items " + firstname +" "+ lastname +" "+ phone +" "+ projectCode +" "+ appVersion +" "+ fcmKey +" "+ deviceDetailss);
 
@@ -231,11 +232,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (result.containsKey(Status.SUCCESS)) {
 
           Log.d(TAG, "onResponse: " + result);
-          View parentLayout = MainActivity.this.findViewById(android.R.id.content);
-          Snackbar.make(parentLayout, "SUCCESS !", Snackbar.LENGTH_LONG).show();
+          Toast.makeText(MainActivity.this, "Successfully. Log in again to continue",
+                  Toast.LENGTH_LONG).show();
         } else if (result.containsKey(Status.FAIL)) {
 
           Log.d(TAG, "onResponse" + result);
+          Toast.makeText(MainActivity.this, "FAIL.kindly confirm  your details and try again ",
+                  Toast.LENGTH_LONG).show();
 
         }
 
